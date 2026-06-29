@@ -22,7 +22,7 @@ The project is designed using a decoupled, microservices-oriented approach, divi
 
 ### 2. The Proxy Backend: Local Python Server (`tools_server.py`)
 
-- **Technology Stack:** Python, Flask, `requests` library.
+- **Technology Stack:** Python, Flask, `requests` library, `python-dotenv`.
 - **External Integration:** RapidAPI "Streaming Availability" (by Movie of the Night).
 - **Network & Port Configuration:** The server is deliberately configured to run on `host="0.0.0.0"` and `port=5005`. Binding to `0.0.0.0` is a critical architectural decision; it ensures the Flask server is exposed to the local network interfaces, allowing the Open Web UI (which operates isolated inside a Docker container) to successfully route HTTP requests to the host machine via `http://host.docker.internal:5005`.
 - **Data Flow & Token Optimization (Why we built this):**
@@ -33,11 +33,14 @@ The project is designed using a decoupled, microservices-oriented approach, divi
   4. It extracts only the essential data points: Service Name, Stream Type (Subscription/Rent/Buy), and Direct Viewing Links.
   5. It returns a lightweight, sanitized JSON response back to the Web UI, significantly reducing token consumption and preventing LLM context-window overload.
 
-### 3. Agentic Orchestration: Web UI Tool (Function)
+### 3. Agentic Orchestration: Web UI Tool
 
 - **Implementation:** A custom Python tool declared within the Open Web UI workspace.
 - **Role:** This component acts as the "bridge." Through precise docstrings and type hinting, the LLM is granted agency to autonomously decide _when_ to use this tool. If a user asks a real-time question (e.g., _"Where can I stream this show in Israel today?"_), the LLM intercepts the prompt, extracts the relevant parameters, triggers the local Flask server, and seamlessly weaves the retrieved JSON data into a natural language response.
-
+- **Architectural Decision: Why a Tool instead of a Function (Filter)?**
+  - **Agentic Routing:** A Function executes blindly on every prompt, wasting resources and API calls. A Tool empowers the LLM with decision-making autonomy, allowing it to intelligently route queries to the live API only when necessary.
+  - **NLP over Regex:** Extracting complex movie titles (e.g., "The 40-Year-Old Virgin") using hardcoded Regular Expressions is brittle and error-prone. Tools leverage the LLM's native Natural Language Processing to extract exact parameters seamlessly.
+  - **Scalability:** This design is highly extensible. Adding new features (like IMDb reviews or ticket booking) simply requires registering additional Tools, positioning the LLM as a true orchestration engine.
 ---
 
 ## 🚀 Installation & Execution
