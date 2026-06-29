@@ -8,6 +8,9 @@ This project implements an advanced, hybrid AI assistant integrated within **Ope
 
 The system leverages a static Vector Database for historical media facts and dynamically orchestrates a local Python proxy server to fetch real-time streaming availability across global platforms, delivering highly accurate and context-aware responses.
 
+## 📋 System Overview
+This project is an intelligent media assistant designed to bridge the gap between static historical data and real-time streaming availability. By unifying a custom knowledge base with live API-driven tools, the system transforms a standard chatbot into a context-aware media expert, capable of solving two core limitations of Large Language Models (LLMs): the lack of real-time data and the tendency to hallucinate factual details.
+
 ---
 
 ## 🏗️ System Architecture & Core Components
