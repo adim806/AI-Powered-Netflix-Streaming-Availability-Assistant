@@ -2,26 +2,22 @@
 
 **Author:** Adi Meller
 
-## 📝 Executive Summary
-
-This project implements an advanced, hybrid AI assistant integrated within **Open Web UI**. By combining **Retrieval-Augmented Generation (RAG)** with **Agentic Tool Calling**, the assistant overcomes the traditional limitations of Large Language Models (LLMs)—namely, knowledge cutoffs and hallucinations.
-
-The system leverages a static Vector Database for historical media facts and dynamically orchestrates a local Python proxy server to fetch real-time streaming availability across global platforms, delivering highly accurate and context-aware responses.
-
 ## 📋 System Overview
-This project is an intelligent media assistant designed to bridge the gap between static historical data and real-time streaming availability. By unifying a custom knowledge base with live API-driven tools, the system transforms a standard chatbot into a context-aware media expert, capable of solving two core limitations of Large Language Models (LLMs): the lack of real-time data and the tendency to hallucinate factual details.
+This project is an intelligent media assistant integrated within **Open Web UI**. By combining **Retrieval-Augmented Generation (RAG)** with **Agentic Tool Calling**. designed to bridge the gap between static historical data and real-time streaming availability. By unifying a custom knowledge base with live API-driven tools, the system transforms a standard chatbot into a context-aware media expert, capable of solving two core limitations of Large Language Models (LLMs): the lack of real-time data and the tendency to hallucinate factual details.
 
 ---
 
-## 🏗️ System Architecture & Core Components
+## 🏗️ System Architecture & Core Components How it works
 
-The project is designed using a decoupled, microservices-oriented approach, divided into three main pillars:
+The assistant operates through three integrated components working in synergy within the Open Web UI environment:
 
 ### 1. The RAG Pipeline: Knowledge Base (Inside Web UI)
 
 - **Data Source:** "Netflix Movies and TV Shows" dataset sourced from Kaggle (`netflix_titles.csv`).
 - **Implementation:** The static CSV file is uploaded and natively indexed as a Knowledge Base within Open Web UI. The data is chunked and stored in an internal Vector Database.
 - **Role:** Acts as the system's "long-term memory." When queried about directors, cast members, release years, or show synopses, the LLM performs a semantic search against this dataset, retrieving exact excerpts (Sources) to ground its answers in factual data without requiring external API calls.
+
+<img width="903" height="341" alt="image" src="https://github.com/user-attachments/assets/f58b1374-121a-487f-857c-424c8e296238" />
 
 ### 2. The Proxy Backend: Local Python Server (`tools_server.py`)
 
@@ -44,7 +40,24 @@ The project is designed using a decoupled, microservices-oriented approach, divi
   - **Agentic Routing:** A Function executes blindly on every prompt, wasting resources and API calls. A Tool empowers the LLM with decision-making autonomy, allowing it to intelligently route queries to the live API only when necessary.
   - **NLP over Regex:** Extracting complex movie titles (e.g., "The 40-Year-Old Virgin") using hardcoded Regular Expressions is brittle and error-prone. Tools leverage the LLM's native Natural Language Processing to extract exact parameters seamlessly.
   - **Scalability:** This design is highly extensible. Adding new features (like IMDb reviews or ticket booking) simply requires registering additional Tools, positioning the LLM as a true orchestration engine.
+ 
+<img width="1912" height="1069" alt="Streaming_Availability_Tool_1" src="https://github.com/user-attachments/assets/b9909c5a-1fdb-470b-8bd8-1e1eb1ea218c" />
+
+<img width="1911" height="1064" alt="Streaming_Availability_Tool_2" src="https://github.com/user-attachments/assets/733be100-7537-4ee2-b9d4-70f0a43dd121" />
+
 ---
+
+
+<img width="1902" height="1006" alt="TEST_streaming_availability_tool_1" src="https://github.com/user-attachments/assets/1906ff11-5788-4c6b-be5b-57b7bf983014" />
+
+<img width="1908" height="994" alt="TEST_streaming_availability_tool_2" src="https://github.com/user-attachments/assets/4137d3e3-7e34-40eb-bc2c-9b5cf546b103" />
+
+<img width="1608" height="998" alt="TEST_streaming_availability_tool_3" src="https://github.com/user-attachments/assets/4efbeba5-4616-4d29-b232-c0e33b81b380" />
+
+
+
+## Summary
+This project demonstrates how to extend a standard Open Web UI setup by integrating personal datasets and custom backend services. By orchestrating these components, the system functions as a robust, agentic engine that is both knowledgeable about media history and connected to the pulse of live streaming platforms.
 
 ## 🚀 Installation & Execution
 
