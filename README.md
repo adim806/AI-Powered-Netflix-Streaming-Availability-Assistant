@@ -14,10 +14,14 @@ The assistant operates through three integrated components working in synergy wi
 ### 1. The RAG Pipeline: Knowledge Base (Inside Web UI)
 
 - **Data Source:** "Netflix Movies and TV Shows" dataset sourced from Kaggle (`netflix_titles.csv`).
+<img width="2555" height="1268" alt="Kaggle_Dataset_Netflix" src="https://github.com/user-attachments/assets/65852439-6990-4afb-9f6e-a581fe9c577d" />
+
 - **Implementation:** The static CSV file is uploaded and natively indexed as a Knowledge Base within Open Web UI. The data is chunked and stored in an internal Vector Database.
 - **Role:** Acts as the system's "long-term memory." When queried about directors, cast members, release years, or show synopses, the LLM performs a semantic search against this dataset, retrieving exact excerpts (Sources) to ground its answers in factual data without requiring external API calls.
 
-<img width="903" height="341" alt="image" src="https://github.com/user-attachments/assets/f58b1374-121a-487f-857c-424c8e296238" />
+<img width="600" height="250" alt="image" src="https://github.com/user-attachments/assets/f58b1374-121a-487f-857c-424c8e296238" />
+<img width="900" height="250" alt="Knowledge_Base_Connection_2" src="https://github.com/user-attachments/assets/08e4b4eb-a351-4f69-b362-8479ababf7a9" />
+
 
 ### 2. The Proxy Backend: Local Python Server ---> **app.py** (`tools_server.py`)
 
@@ -31,6 +35,8 @@ The assistant operates through three integrated components working in synergy wi
   3. It executes the query, receives a massive data payload, and performs strict data parsing.
   4. It extracts only the essential data points: Service Name, Stream Type (Subscription/Rent/Buy), and Direct Viewing Links.
   5. It returns a lightweight, sanitized JSON response back to the Web UI, significantly reducing token consumption and preventing LLM context-window overload.
+
+<img width="2548" height="1387" alt="Server-side" src="https://github.com/user-attachments/assets/5ea86313-e23b-4700-9fea-ad060a49a1c9" />
 
 ### 3. Agentic Orchestration: Web UI Tool
 
@@ -52,7 +58,7 @@ The assistant operates through three integrated components working in synergy wi
 
 <img width="1908" height="994" alt="TEST_streaming_availability_tool_2" src="https://github.com/user-attachments/assets/4137d3e3-7e34-40eb-bc2c-9b5cf546b103" />
 
-<img width="1608" height="998" alt="TEST_streaming_availability_tool_3" src="https://github.com/user-attachments/assets/4efbeba5-4616-4d29-b232-c0e33b81b380" />
+
 
 
 
@@ -89,16 +95,18 @@ You should see a clean JSON response detailing where the show is currently strea
 
 
 1. Knowledge Base (RAG) Validation:
-   Demonstrating the LLM correctly pulling cast/director information directly from the uploaded CSV.
+<img width="2550" height="1261" alt="Test_Knowledge_Base_ques_1" src="https://github.com/user-attachments/assets/ea6a0347-9133-4f48-8294-891974d22a72" />
+
+<img width="2374" height="1269" alt="Test_Knowledge_Base_ques_2" src="https://github.com/user-attachments/assets/3b5f6112-8e65-46e0-97af-77ae6f60278f" />
 
 ``
 
 2. Local Server JSON Response:
-   Proof of the Flask server successfully parsing the RapidAPI data via browser or Postman.
+   <img width="1908" height="994" alt="TEST_streaming_availability_tool_2" src="https://github.com/user-attachments/assets/4137d3e3-7e34-40eb-bc2c-9b5cf546b103" />
 
 ``
 
 3. End-to-End Tool Calling:
-   The final integration showing the LLM answering a mixed prompt by utilizing both the RAG database and the live Streaming Tool.
+   <img width="1608" height="998" alt="TEST_streaming_availability_tool_3" src="https://github.com/user-attachments/assets/4efbeba5-4616-4d29-b232-c0e33b81b380" />
 
 ``
