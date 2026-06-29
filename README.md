@@ -1,4 +1,4 @@
-# 🎬 AI-Powered Netflix & Streaming Availability Assistant
+# 🎬 AI-Powered Netflix & Streaming Availability Assistant (Open-Web UI)
 
 **Author:** Adi Meller
 
@@ -19,7 +19,7 @@ The assistant operates through three integrated components working in synergy wi
 
 <img width="903" height="341" alt="image" src="https://github.com/user-attachments/assets/f58b1374-121a-487f-857c-424c8e296238" />
 
-### 2. The Proxy Backend: Local Python Server (`tools_server.py`)
+### 2. The Proxy Backend: Local Python Server ---> **app.py** (`tools_server.py`)
 
 - **Technology Stack:** Python, Flask, `requests` library, `python-dotenv`.
 - **External Integration:** RapidAPI "Streaming Availability" (by Movie of the Night).
@@ -71,12 +71,12 @@ To run the local backend server and test the integration:
 
 ## Configure API Keys:
 
-Open tools_server.py and replace YOUR_RAPIDAPI_KEY_HERE with your active RapidAPI key.
+Open app.py and replace YOUR_RAPIDAPI_KEY_HERE with your active RapidAPI key.
 
 Run the Proxy Server:
 Execute the server script from your terminal:
 
-python tools_server.py
+python app.py
 
 Expected output: The console will indicate the server is running on http://0.0.0.0:5005/.
 
@@ -86,7 +86,7 @@ http://localhost:5005/streaming_status?title=stranger%20things&country=us
 You should see a clean JSON response detailing where the show is currently streaming.
 
 📸 Testing & Verification Screenshots
-(Add your visual proof here to demonstrate system functionality)
+
 
 1. Knowledge Base (RAG) Validation:
    Demonstrating the LLM correctly pulling cast/director information directly from the uploaded CSV.
